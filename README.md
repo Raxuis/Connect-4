@@ -1,11 +1,3 @@
-<div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="Connect 4" />
-
-  &#xa0;
-
-  <!-- <a href="https://connect4.netlify.app">Demo</a> -->
-</div>
-
 <h1 align="center">Connect 4</h1>
 
 <p align="center">
@@ -46,27 +38,24 @@
 
 ## :dart: About ##
 
-Describe your project
+This connect 4 was a project made during classes from my private school.<br>
+![Game cover](assets/connect-4-pic.jpeg)
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+:heavy_check_mark: Play with your friend
+:heavy_check_mark: Win (I think it's what matters the most)
 
 ## :rocket: Technologies ##
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+- HTML / CSS
+- JavaScript
 
 ## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) installed.
 
 ## :checkered_flag: Starting ##
 
@@ -77,13 +66,7 @@ $ git clone https://github.com/Raxuis/connect-4
 # Access
 $ cd connect-4
 
-# Install dependencies
-$ yarn
-
-# Run the project
-$ yarn start
-
-# The server will initialize in the <http://localhost:3000>
+# Simply start a live server
 ```
 
 ## :memo: License ##
