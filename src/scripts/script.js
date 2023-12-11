@@ -36,11 +36,11 @@ function boardCreation(height, width) {
     board.style.width = width * 70 + 'px';
 }
 
-function changeColor(row, col) {
+function changeColor(x, y) {
     let currentPlayer = checkPlayer();
 
     for (let i = boardArray.length - 1; i >= 0; i--) {
-        let cell = boardArray[i][col];
+        let cell = boardArray[i][y];
         if (!cell.classList.contains('yellow') && !cell.classList.contains('red')) {
             if (currentPlayer === 1) {
                 cell.classList.remove('normal');
