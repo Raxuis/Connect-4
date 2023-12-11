@@ -8,7 +8,7 @@ function main() {
     let width = prompt('How many columns do you want?'); // modulable width
     if (isNaN(height) || isNaN(width) || height <= 0 || width <= 0) {
         alert('Please enter valid positive numbers for height and width.');
-        return;
+        window.location.reload()
     }
     boardCreation(height, width);
     console.log(cells);
