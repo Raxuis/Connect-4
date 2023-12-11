@@ -1,8 +1,7 @@
-
 let board = document.getElementById('board');
 let cells = [];
 let boardArray = [];
-let player = 0;
+let player = 0; // By default the player value is equal to 0 to help the function checkPlayer()
 
 function main() {
     let height = prompt('How many rows do you want?'); // modulable height
@@ -23,9 +22,9 @@ function boardCreation(height, width) {
         for (let j = 0; j < width; j++) {
             let cell = document.createElement('td');
             cell.setAttribute('onclick', `changeColor(${i}, ${j})`);
-            cell.classList.add('normal')
+            cell.classList.add('normal');
             html += cell.outerHTML;
-            cells.push('normal'); // push the normal word to note that the color is white into the cells array
+            cells.push('normal');
             boardArray[i][j] = cell; // update boardArray with the cell element
         }
         html += '</tr>';
@@ -37,24 +36,28 @@ function boardCreation(height, width) {
     board.style.width = width * 70 + 'px';
 }
 
-function changeColor(x, y) {
-    let currentPlayer = checkPlayer()
-    let cell = boardArray[x][y];
-    if (!cell.classList.contains('yellow') && !cell.classList.contains('red')) {
-        if (currentPlayer == 1) {
-            cell.classList.remove('normal');
-            cell.classList.add('yellow');
-            updateBoard();
-        } else if (currentPlayer == 2) {
-            cell.classList.remove('normal');
-            cell.classList.add('red');
-            updateBoard();
+function changeColor(row, col) {
+    let currentPlayer = checkPlayer();
+
+    for (let i = boardArray.length - 1; i >= 0; i--) {
+        let cell = boardArray[i][col];
+        if (!cell.classList.contains('yellow') && !cell.classList.contains('red')) {
+            if (currentPlayer === 1) {
+                cell.classList.remove('normal');
+                cell.classList.add('yellow');
+                break;
+            } else if (currentPlayer === 2) {
+                cell.classList.remove('normal');
+                cell.classList.add('red');
+                break;
+            }
         }
-    } else {
-        alert('Cell already changed!');
     }
 
+    updateBoard();
+    // Add the win condition
 }
+
 function updateBoard() {
     board.innerHTML = "";
 
@@ -82,13 +85,13 @@ function checkPlayer() {
             player = 1
             break
         case 1:
-            player = 2
-            break
+            player = 2;
+            break;
         case 2:
-            player = 1
-            break
+            player = 1;
+            break;
     }
-    return player
+    return player;
 }
 
 main();
