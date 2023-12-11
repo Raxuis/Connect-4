@@ -1,0 +1,16 @@
+#board {
+    background-color: blue;
+    position: absolute;
+    height: 300px;
+    width: 300px;
+}
+
+#piece {
+    position: relative;
+    background-color: white;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    left: 5px;
+    top: 5px;
+}
