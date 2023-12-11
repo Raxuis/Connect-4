@@ -1,16 +1,26 @@
 #board {
     background-color: blue;
-    position: absolute;
-    height: 300px;
-    width: 300px;
+    padding-left: 50px;
+    padding-top: 50px;
 }
 
-#piece {
-    position: relative;
+.normal {
     background-color: white;
-    height: 30px;
-    width: 30px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
-    left: 5px;
-    top: 5px;
+}
+
+.yellow {
+    background-color: yellow;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.red {
+    background-color: white;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
 }
