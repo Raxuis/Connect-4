@@ -1,7 +1,7 @@
 #board {
     background-color: blue;
-    padding-left: 50px;
-    padding-top: 50px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .normal {
@@ -19,7 +19,7 @@
 }
 
 .red {
-    background-color: white;
+    background-color: red;
     height: 60px;
     width: 60px;
     border-radius: 50%;
