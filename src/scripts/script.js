@@ -93,7 +93,8 @@ function updateBoard() {
 function checkPlayer() {
     switch (player) {
         case 0:
-            player = 1
+            player = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+            console.log(player)
             break
         case 1:
             player = 2;
