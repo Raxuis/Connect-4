@@ -2,7 +2,14 @@
     font-family: 'Afacad', sans-serif;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #board {
+    margin-top: 50px;
     background-color: blue;
     padding-left: 20px;
     padding-top: 20px;
@@ -61,11 +68,19 @@ h1 {
 }
 
 .container {
-    padding: 30px;
+    padding-top: 30px;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container p {
     font-size: 1.5em;
+}
+
+#rules-content {
+    width: 80%;
 }
 
 #rules {
@@ -80,6 +95,6 @@ h1 {
     list-style-type: disc;
 }
 
-hr {
-    padding: 0 0;
+#time {
+    padding-top: 10px;
 }

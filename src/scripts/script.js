@@ -1,16 +1,18 @@
 let board = document.getElementById('board');
+let time = document.getElementById('time');
 let boardArray = [];
 let player = 0; // By default the player value is equal to 0 to help the function checkPlayer()
 let col = 0
 function main() {
-    let height = prompt('How many rows do you want?'); // modulable height
-    let width = prompt('How many columns do you want?'); // modulable width
+    let height = parseInt(prompt('How many rows do you want?')); // modulable height
+    let width = parseInt(prompt('How many columns do you want?')); // modulable width
     if (isNaN(height) || isNaN(width) || height <= 0 || width <= 0) {
         alert('Please enter valid positive numbers for height and width.');
         window.location.reload()
     }
     boardCreation(height, width);
-    /* console.log(cells); */
+    timer(time)
+
 }
 
 function boardCreation(height, width) {
@@ -30,8 +32,8 @@ function boardCreation(height, width) {
     html += "</table>";
 
     board.innerHTML = html;
-    board.style.height = height * 70 + 'px';
-    board.style.width = width * 70 + 'px';
+    board.style.height = height * 66 + 'px';
+    board.style.width = width * 66 + 'px';
 }
 
 function changeColor(x, y) {
@@ -53,12 +55,17 @@ function changeColor(x, y) {
         }
     }
     updateBoard();
-    let won = checkWin(currentPlayer, col, y)
+    let won = checkWin(col, y)
+    let isDraw = draw(boardArray);
     if (won) {
         alert(`Congratulations! Player ${currentPlayer} wins!`)
         window.location.reload()
+    } else {
+        if (isDraw) {
+            alert("It's a Draw!");
+            window.location.reload();
+        }
     }
-    // Add the win condition
 }
 
 function updateBoard() {
@@ -97,10 +104,8 @@ function checkPlayer() {
     }
     return player;
 }
-function checkWin(currentPlayer, x, y) {
-    console.log(`Checking for a win for Player ${currentPlayer} at position (${x}, ${y})`);
+function checkWin(x, y) {
 
-    // Check for vertical win
     if (
         x + 3 < boardArray.length &&
         boardArray[x][y].classList.contains('yellow') &&
@@ -121,7 +126,6 @@ function checkWin(currentPlayer, x, y) {
         return true;
     }
 
-    // Check for horizontal win
     if (
         y + 3 < boardArray[x].length &&
         boardArray[x][y].classList.contains('yellow') &&
@@ -142,7 +146,6 @@ function checkWin(currentPlayer, x, y) {
         return true;
     }
 
-    // Check for diagonal win (upward)
     if (
         x - 3 >= 0 &&
         y + 3 < boardArray[x].length &&
@@ -154,7 +157,6 @@ function checkWin(currentPlayer, x, y) {
         return true;
     }
 
-    // Check for diagonal win (downward)
     if (
         x + 3 < boardArray.length &&
         y + 3 < boardArray[x].length &&
@@ -176,14 +178,13 @@ function checkWin(currentPlayer, x, y) {
         return true;
     }
 
-    // Check for diagonal win in the opposite direction (downward)
     if (
         x - 3 >= 0 &&
         y - 3 >= 0 &&
         boardArray[x][y].classList.contains('red') &&
-        boardArray[x - 1][y - 1].classList.contains('yellow') &&
-        boardArray[x - 2][y - 2].classList.contains('yellow') &&
-        boardArray[x - 3][y - 3].classList.contains('yellow')
+        boardArray[x - 1][y - 1].classList.contains('red') &&
+        boardArray[x - 2][y - 2].classList.contains('red') &&
+        boardArray[x - 3][y - 3].classList.contains('red')
     ) {
         return true;
     }
@@ -207,7 +208,6 @@ function checkWin(currentPlayer, x, y) {
         return true;
     }
 
-    // Check for horizontal win
     if (
         y + 3 < boardArray[x].length &&
         boardArray[x][y].classList.contains('red') &&
@@ -260,7 +260,6 @@ function checkWin(currentPlayer, x, y) {
         return true;
     }
 
-    // Check for diagonal win in the opposite direction (downward)
     if (
         x - 3 >= 0 &&
         y - 3 >= 0 &&
@@ -271,14 +270,8 @@ function checkWin(currentPlayer, x, y) {
     ) {
         return true;
     }
-
-
-    // Repeat the same checks for red tokens
-
     // No win found
     return false;
 }
 
-/* function checkWinDiagonal() {
-} */
 main();
