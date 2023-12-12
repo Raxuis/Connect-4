@@ -1,8 +1,7 @@
 let board = document.getElementById('board');
-let cells = [];
 let boardArray = [];
 let player = 0; // By default the player value is equal to 0 to help the function checkPlayer()
-
+let col = 0
 function main() {
     let height = prompt('How many rows do you want?'); // modulable height
     let width = prompt('How many columns do you want?'); // modulable width
@@ -11,7 +10,7 @@ function main() {
         window.location.reload()
     }
     boardCreation(height, width);
-    console.log(cells);
+    /* console.log(cells); */
 }
 
 function boardCreation(height, width) {
@@ -24,7 +23,6 @@ function boardCreation(height, width) {
             cell.setAttribute('onclick', `changeColor(${i}, ${j})`);
             cell.classList.add('normal');
             html += cell.outerHTML;
-            cells.push('normal');
             boardArray[i][j] = cell; // update boardArray with the cell element
         }
         html += '</tr>';
@@ -37,10 +35,11 @@ function boardCreation(height, width) {
 }
 
 function changeColor(x, y) {
+    console.log(x, y)
     let currentPlayer = checkPlayer();
 
-    for (let i = boardArray.length - 1; i >= 0; i--) {
-        let cell = boardArray[i][y];
+    for (col = boardArray.length - 1; col >= 0; col--) {
+        let cell = boardArray[col][y];
         if (!cell.classList.contains('yellow') && !cell.classList.contains('red')) {
             if (currentPlayer === 1) {
                 cell.classList.remove('normal');
@@ -53,19 +52,24 @@ function changeColor(x, y) {
             }
         }
     }
-
     updateBoard();
+    let won = checkWin(currentPlayer, col, y)
+    if (won) {
+        alert(`Congratulations! Player ${currentPlayer} wins!`)
+        window.location.reload()
+    }
     // Add the win condition
 }
 
 function updateBoard() {
+    cells = []
     board.innerHTML = "";
 
     let html = "<table>";
 
     for (let i = 0; i < boardArray.length; i++) {
+        cells[i] = []
         html += "<tr>";
-
         for (let j = 0; j < boardArray[i].length; j++) {
             let cell = boardArray[i][j];
             cell.setAttribute('onclick', `changeColor(${i}, ${j})`);
@@ -93,5 +97,188 @@ function checkPlayer() {
     }
     return player;
 }
+function checkWin(currentPlayer, x, y) {
+    console.log(`Checking for a win for Player ${currentPlayer} at position (${x}, ${y})`);
 
+    // Check for vertical win
+    if (
+        x + 3 < boardArray.length &&
+        boardArray[x][y].classList.contains('yellow') &&
+        boardArray[x + 1][y].classList.contains('yellow') &&
+        boardArray[x + 2][y].classList.contains('yellow') &&
+        boardArray[x + 3][y].classList.contains('yellow')
+    ) {
+        return true;
+    }
+
+    if (
+        x - 3 >= 0 &&
+        boardArray[x][y].classList.contains('yellow') &&
+        boardArray[x - 1][y].classList.contains('yellow') &&
+        boardArray[x - 2][y].classList.contains('yellow') &&
+        boardArray[x - 3][y].classList.contains('yellow')
+    ) {
+        return true;
+    }
+
+    // Check for horizontal win
+    if (
+        y + 3 < boardArray[x].length &&
+        boardArray[x][y].classList.contains('yellow') &&
+        boardArray[x][y + 1].classList.contains('yellow') &&
+        boardArray[x][y + 2].classList.contains('yellow') &&
+        boardArray[x][y + 3].classList.contains('yellow')
+    ) {
+        return true;
+    }
+
+    if (
+        y - 3 >= 0 &&
+        boardArray[x][y].classList.contains('yellow') &&
+        boardArray[x][y - 1].classList.contains('yellow') &&
+        boardArray[x][y - 2].classList.contains('yellow') &&
+        boardArray[x][y - 3].classList.contains('yellow')
+    ) {
+        return true;
+    }
+
+    // Check for diagonal win (upward)
+    if (
+        x - 3 >= 0 &&
+        y + 3 < boardArray[x].length &&
+        boardArray[x][y].classList.contains('yellow') &&
+        boardArray[x - 1][y + 1].classList.contains('yellow') &&
+        boardArray[x - 2][y + 2].classList.contains('yellow') &&
+        boardArray[x - 3][y + 3].classList.contains('yellow')
+    ) {
+        return true;
+    }
+
+    // Check for diagonal win (downward)
+    if (
+        x + 3 < boardArray.length &&
+        y + 3 < boardArray[x].length &&
+        boardArray[x][y].classList.contains('yellow') &&
+        boardArray[x + 1][y + 1].classList.contains('yellow') &&
+        boardArray[x + 2][y + 2].classList.contains('yellow') &&
+        boardArray[x + 3][y + 3].classList.contains('yellow')
+    ) {
+        return true;
+    }
+    if (
+        x + 3 < boardArray.length &&
+        y - 3 >= 0 &&
+        boardArray[x][y].classList.contains('yellow') &&
+        boardArray[x + 1][y - 1].classList.contains('yellow') &&
+        boardArray[x + 2][y - 2].classList.contains('yellow') &&
+        boardArray[x + 3][y - 3].classList.contains('yellow')
+    ) {
+        return true;
+    }
+
+    // Check for diagonal win in the opposite direction (downward)
+    if (
+        x - 3 >= 0 &&
+        y - 3 >= 0 &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x - 1][y - 1].classList.contains('yellow') &&
+        boardArray[x - 2][y - 2].classList.contains('yellow') &&
+        boardArray[x - 3][y - 3].classList.contains('yellow')
+    ) {
+        return true;
+    }
+    if (
+        x + 3 < boardArray.length &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x + 1][y].classList.contains('red') &&
+        boardArray[x + 2][y].classList.contains('red') &&
+        boardArray[x + 3][y].classList.contains('red')
+    ) {
+        return true;
+    }
+
+    if (
+        x - 3 >= 0 &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x - 1][y].classList.contains('red') &&
+        boardArray[x - 2][y].classList.contains('red') &&
+        boardArray[x - 3][y].classList.contains('red')
+    ) {
+        return true;
+    }
+
+    // Check for horizontal win
+    if (
+        y + 3 < boardArray[x].length &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x][y + 1].classList.contains('red') &&
+        boardArray[x][y + 2].classList.contains('red') &&
+        boardArray[x][y + 3].classList.contains('red')
+    ) {
+        return true;
+    }
+
+    if (
+        y - 3 >= 0 &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x][y - 1].classList.contains('red') &&
+        boardArray[x][y - 2].classList.contains('red') &&
+        boardArray[x][y - 3].classList.contains('red')
+    ) {
+        return true;
+    }
+    if (
+        x - 3 >= 0 &&
+        y + 3 < boardArray[x].length &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x - 1][y + 1].classList.contains('red') &&
+        boardArray[x - 2][y + 2].classList.contains('red') &&
+        boardArray[x - 3][y + 3].classList.contains('red')
+    ) {
+        return true;
+    }
+
+    // Check for diagonal win (downward)
+    if (
+        x + 3 < boardArray.length &&
+        y + 3 < boardArray[x].length &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x + 1][y + 1].classList.contains('red') &&
+        boardArray[x + 2][y + 2].classList.contains('red') &&
+        boardArray[x + 3][y + 3].classList.contains('red')
+    ) {
+        return true;
+    }
+    if (
+        x + 3 < boardArray.length &&
+        y - 3 >= 0 &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x + 1][y - 1].classList.contains('red') &&
+        boardArray[x + 2][y - 2].classList.contains('red') &&
+        boardArray[x + 3][y - 3].classList.contains('red')
+    ) {
+        return true;
+    }
+
+    // Check for diagonal win in the opposite direction (downward)
+    if (
+        x - 3 >= 0 &&
+        y - 3 >= 0 &&
+        boardArray[x][y].classList.contains('red') &&
+        boardArray[x - 1][y - 1].classList.contains('red') &&
+        boardArray[x - 2][y - 2].classList.contains('red') &&
+        boardArray[x - 3][y - 3].classList.contains('red')
+    ) {
+        return true;
+    }
+
+
+    // Repeat the same checks for red tokens
+
+    // No win found
+    return false;
+}
+
+/* function checkWinDiagonal() {
+} */
 main();
