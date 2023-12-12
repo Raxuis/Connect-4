@@ -1,3 +1,7 @@
+* {
+    font-family: 'Afacad', sans-serif;
+}
+
 #board {
     background-color: blue;
     padding-left: 20px;
@@ -23,4 +27,59 @@
     height: 60px;
     width: 60px;
     border-radius: 50%;
+}
+
+header {
+    background-color: #242936;
+    padding: 10px 0;
+}
+
+ul {
+    padding: 50px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 2em;
+}
+
+#title {
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+.container {
+    padding: 30px;
+}
+
+.container p {
+    font-size: 1.5em;
+}
+
+#rules {
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    margin-top: -30px;
+}
+
+#rules li {
+    list-style-type: disc;
+}
+
+hr {
+    padding: 0 0;
 }
