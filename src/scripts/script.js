@@ -40,8 +40,8 @@ newGame.addEventListener('click', function () {
 
 val.appendChild(heightInput);
 val.appendChild(widthInput);
-val.appendChild(newGame);
 val.appendChild(reset);
+val.appendChild(newGame);
 val.style.display = 'flex'
 val.style.justifyContent = 'space-between'
 score.appendChild(player1ScoreText)
