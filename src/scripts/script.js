@@ -1,18 +1,43 @@
 let board = document.getElementById('board');
 let time = document.getElementById('time');
 let boardArray = [];
-let player = 0; // By default the player value is equal to 0 to help the function checkPlayer()
-let col = 0
-function main() {
-    let height = parseInt(prompt('How many rows do you want?')); // modulable height
-    let width = parseInt(prompt('How many columns do you want?')); // modulable width
+let player = 0;
+let col = 0;
+
+let heightInput = document.createElement('input');
+heightInput.type = 'number';
+heightInput.value = 5; // Set the default value
+
+let widthInput = document.createElement('input');
+widthInput.type = 'number';
+widthInput.value = 5; // Set the default value
+
+let reset = document.createElement('button');
+reset.textContent = 'Reset';
+reset.addEventListener('click', function () {
+    window.location.reload();
+});
+
+let newGame = document.createElement('button');
+newGame.textContent = 'New';
+newGame.addEventListener('click', function () {
+    let height = parseInt(heightInput.value);
+    let width = parseInt(widthInput.value);
+    main(height, width);
+});
+
+document.body.appendChild(heightInput);
+document.body.appendChild(widthInput);
+document.body.appendChild(newGame);
+document.body.appendChild(reset);
+
+function main(height, width) {
     if (isNaN(height) || isNaN(width) || height <= 0 || width <= 0) {
         alert('Please enter valid positive numbers for height and width.');
-        window.location.reload()
+        window.location.reload();
     }
     boardCreation(height, width);
-    timer(time)
-
+    timer(time);
 }
 
 function boardCreation(height, width) {
@@ -274,5 +299,3 @@ function checkWin(x, y) {
     // No win found
     return false;
 }
-
-main();
