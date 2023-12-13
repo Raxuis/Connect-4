@@ -1,8 +1,19 @@
-let board = document.getElementById('board');
-let time = document.getElementById('time');
-let val = document.getElementById('val');
+const board = document.getElementById('board');
+const time = document.getElementById('time');
+const val = document.getElementById('val');
+const score = document.getElementById('score');
 let boardArray = [];
 let player = 0;
+let player1Score = 0;
+let player2Score = 0;
+let clicked = false;
+
+let player1ScoreText = document.createElement('div');
+player1ScoreText.textContent = player1Score + ':';
+
+let player2ScoreText = document.createElement('div');
+player2ScoreText.textContent = player2Score;
+
 
 let heightInput = document.createElement('input');
 heightInput.type = 'number';
@@ -33,6 +44,8 @@ val.appendChild(newGame);
 val.appendChild(reset);
 val.style.display = 'flex'
 val.style.justifyContent = 'space-between'
+score.appendChild(player1ScoreText)
+score.appendChild(player2ScoreText)
 
 function main(height, width) {
     if (isNaN(height) || isNaN(width) || height <= 0 || width <= 0) {
@@ -40,7 +53,10 @@ function main(height, width) {
         window.location.reload();
     }
     boardCreation(height, width);
-    timer(time);
+    if (!clicked) {
+        timer(time);
+    }
+    clicked = true
 }
 
 function boardCreation(height, width) {
@@ -87,12 +103,22 @@ function changeColor(y) {
     let isDraw = draw(boardArray);
     if (won) {
         alert(`Congratulations! Player ${currentPlayer} wins!`)
-        window.location.reload()
-    } else {
-        if (isDraw) {
-            alert("It's a Draw!");
-            window.location.reload();
-        }
+        updateScore(currentPlayer, player1Score, player2Score, player1ScoreText, player2ScoreText);
+        resetGame();
+
+    } else if (isDraw) {
+        alert("It's a Draw!");
+        player1Score += 1
+        player2Score += 1
+    }
+}
+function updateScore(player) {
+    if (player === 1) {
+        player1Score += 1;
+        player1ScoreText.textContent = player1Score + ':';
+    } else if (player === 2) {
+        player2Score += 1;
+        player2ScoreText.textContent = player2Score;
     }
 }
 

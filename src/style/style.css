@@ -99,3 +99,8 @@ h1 {
 #time {
     padding-top: 10px;
 }
+
+#score {
+    display: flex;
+    justify-content: space-between;
+}
