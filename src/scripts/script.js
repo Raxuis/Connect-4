@@ -1,8 +1,8 @@
 let board = document.getElementById('board');
 let time = document.getElementById('time');
+let val = document.getElementById('val');
 let boardArray = [];
 let player = 0;
-let col = 0;
 
 let heightInput = document.createElement('input');
 heightInput.type = 'number';
@@ -24,12 +24,15 @@ newGame.addEventListener('click', function () {
     let height = parseInt(heightInput.value);
     let width = parseInt(widthInput.value);
     main(height, width);
+    board.style.display = 'flex'
 });
 
-document.body.appendChild(heightInput);
-document.body.appendChild(widthInput);
-document.body.appendChild(newGame);
-document.body.appendChild(reset);
+val.appendChild(heightInput);
+val.appendChild(widthInput);
+val.appendChild(newGame);
+val.appendChild(reset);
+val.style.display = 'flex'
+val.style.justifyContent = 'space-between'
 
 function main(height, width) {
     if (isNaN(height) || isNaN(width) || height <= 0 || width <= 0) {
@@ -47,7 +50,7 @@ function boardCreation(height, width) {
         html += "<tr>";
         for (let j = 0; j < width; j++) {
             let cell = document.createElement('td');
-            cell.setAttribute('onclick', `changeColor(${i}, ${j})`);
+            cell.setAttribute('onclick', `changeColor(${j})`);
             cell.classList.add('normal');
             html += cell.outerHTML;
             boardArray[i][j] = cell; // update boardArray with the cell element
@@ -61,9 +64,9 @@ function boardCreation(height, width) {
     board.style.width = width * 66 + 'px';
 }
 
-function changeColor(x, y) {
-    console.log(x, y)
+function changeColor(y) {
     let currentPlayer = checkPlayer();
+    let col;
 
     for (col = boardArray.length - 1; col >= 0; col--) {
         let cell = boardArray[col][y];
@@ -104,7 +107,7 @@ function updateBoard() {
         html += "<tr>";
         for (let j = 0; j < boardArray[i].length; j++) {
             let cell = boardArray[i][j];
-            cell.setAttribute('onclick', `changeColor(${i}, ${j})`);
+            cell.setAttribute('onclick', `changeColor(${j})`);
             html += cell.outerHTML;
         }
 
@@ -119,7 +122,6 @@ function checkPlayer() {
     switch (player) {
         case 0:
             player = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-            console.log(player)
             break
         case 1:
             player = 2;

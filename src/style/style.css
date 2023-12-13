@@ -13,6 +13,7 @@ main {
     background-color: blue;
     padding-left: 20px;
     padding-top: 20px;
+    display: none;
 }
 
 .normal {
