@@ -4,6 +4,8 @@ const val = document.getElementById('val');
 const score = document.getElementById('score');
 let username1 = 'Player 1';
 let username2 = 'Player 2';
+let usernameRound;
+const turn = document.getElementById('turn')
 
 let boardArray = [];
 let player = 0;
@@ -59,6 +61,9 @@ function main(height, width) {
         alert('Please enter valid positive numbers for height and width.');
         window.location.reload();
     }
+    if (!usernameRound) {
+        checkPlayer(); // Assign a random player for the initial turn
+    }
     boardCreation(height, width);
     if (!clicked) {
         timer(time);
@@ -81,10 +86,13 @@ function boardCreation(height, width) {
         html += '</tr>';
     }
     html += "</table>";
-
     board.innerHTML = html;
     board.style.height = height * 66 + 'px';
     board.style.width = width * 66 + 'px';
+    console.log(usernameRound)
+    console.log(username1)
+    console.log(username2)
+    turn.innerHTML = `<p>It's ${usernameRound}'s turn.</p>`
 }
 
 function changeColor(y) {
@@ -109,8 +117,9 @@ function changeColor(y) {
     let won = checkWin(col, y)
     let isDraw = draw(boardArray);
     if (won) {
-        alert(`Congratulations! Player ${currentPlayer} wins!`)
-        updateScore(currentPlayer, player1Score, player2Score, player1ScoreText, player2ScoreText);
+        checkPlayer()
+        alert(`Congratulations! ${usernameRound} wins!`)
+        updateScore(currentPlayer);
         resetGame();
 
     } else if (isDraw) {
@@ -149,18 +158,26 @@ function updateBoard() {
 
     html += "</table>";
     board.innerHTML = html;
+    turn.innerHTML = `<p>It's ${usernameRound}'s turn.</p>`
 }
 
 function checkPlayer() {
     switch (player) {
         case 0:
-            player = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-            break
+            player = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+            if (player === 1) {
+                usernameRound = username1;
+            } else {
+                usernameRound = username2;
+            }
+            break;
         case 1:
             player = 2;
+            usernameRound = username2;
             break;
         case 2:
             player = 1;
+            usernameRound = username1;
             break;
     }
     return player;
