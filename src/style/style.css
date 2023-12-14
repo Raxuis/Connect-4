@@ -11,10 +11,15 @@ main {
 #board {
     margin-top: 50px;
     background-color: blue;
-    padding-left: 20px;
-    padding-top: 20px;
+    padding: 20px;
     display: none;
+    border-radius: 5%;
 }
+
+#board td {
+    padding-left: 20px;
+}
+
 
 .normal {
     background-color: white;
