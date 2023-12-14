@@ -6,6 +6,8 @@ let username1 = 'Player 1';
 let username2 = 'Player 2';
 let usernameRound;
 const turn = document.getElementById('turn')
+let totalGameTime = 0;
+let stop = false;
 
 let boardArray = [];
 let player = 0;
@@ -31,17 +33,21 @@ widthInput.value = 5; // Set the default value
 let reset = document.createElement('button');
 reset.textContent = 'Reset';
 reset.addEventListener('click', function () {
-    const query = fetch(`http://localhost:8888/Connect-4/src/data/index.php?api=create&red_user=${username1}&yellow_user=${username2}&yellow_score=${player1Score}&red_score=${player2Score}`);
+    stop = true;
+    if (username1.includes(' ')) {
+        username1 = username1.replace(' ', '_')
+    }
+    if (username2.includes(' ')) {
+        username2 = username2.replace(' ', '_')
+    }
+    const query = fetch(`http://localhost:8888/Connect-4/src/data/index.php?api=create&red_user=${username1}&yellow_user=${username2}&yellow_score=${player1Score}&red_score=${player2Score}&gametime=${totalGameTime}`);
 
-    query
-        .then(response => response.json())
-        .then((response) => {
-            response.forEach(ele => {
-                console.log(ele);
-            });
-        })
-        .catch(error => console.log(error));
-
+    query.then(response => response.json()).then((response) => {
+        response.forEach(ele => {
+            console.log(ele);
+        });
+    }).catch(error => console.log(error));
+    totalGameTime = 0;
     window.location.reload();
 });
 
@@ -100,9 +106,6 @@ function boardCreation(height, width) {
     board.innerHTML = html;
     board.style.height = height * 66 + 'px';
     board.style.width = width * 66 + 'px';
-    console.log(usernameRound)
-    console.log(username1)
-    console.log(username2)
     turn.innerHTML = `<p>It's ${usernameRound}'s turn.</p>`
 }
 
@@ -137,8 +140,16 @@ function changeColor(y) {
         alert("It's a Draw!");
         player1Score += 1
         player2Score += 1
+        resetGame()
     }
 }
+function resetGame() {
+    boardArray = [];
+    player = 0;
+    usernameRound = undefined;
+    updateBoard();
+}
+
 function updateScore(player) {
     if (player === 1) {
         player1Score += 1;
@@ -169,7 +180,28 @@ function updateBoard() {
 
     html += "</table>";
     board.innerHTML = html;
-    turn.innerHTML = `<p>It's ${usernameRound}'s turn.</p>`
+    if (usernameRound) {
+        turn.innerHTML = `<p>It's ${usernameRound}'s turn.</p>`
+    } else {
+        turn.innerHTML = '<p></p>'
+    }
+}
+function timer(time, callback) {
+    let startTime = new Date().getTime();
+    let now;
+    let interval = setInterval(() => {
+        if (!stop) {
+            now = Math.floor((new Date().getTime() - startTime) / 1000);
+            totalGameTime = now;
+            time.innerHTML = 'It\'s been : ' + totalGameTime + 's';
+        } else {
+            clearInterval(interval);
+            if (callback) {
+                callback(totalGameTime);
+            }
+        }
+    }, 1000);
+    return interval;
 }
 
 function checkPlayer() {
