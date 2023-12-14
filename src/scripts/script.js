@@ -32,6 +32,17 @@ let reset = document.createElement('button');
 reset.textContent = 'Reset';
 reset.addEventListener('click', function () {
     const query = fetch(`http://localhost:8888/Connect-4/src/data/index.php?api=create&red_user=${username1}&yellow_user=${username2}&yellow_score=${player1Score}&red_score=${player2Score}`);
+
+    query
+        .then(response => response.json())
+        .then((response) => {
+            response.forEach(ele => {
+                console.log(ele);
+            });
+        })
+        .catch(error => console.log(error));
+
+    window.location.reload();
 });
 
 let newGame = document.createElement('button');
