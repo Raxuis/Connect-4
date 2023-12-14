@@ -8,6 +8,7 @@ let usernameRound;
 const turn = document.getElementById('turn')
 let totalGameTime = 0;
 let stop = false;
+let format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
 let boardArray = [];
 let player = 0;
@@ -39,6 +40,12 @@ reset.addEventListener('click', function () {
     }
     if (username2.includes(' ')) {
         username2 = username2.replace(' ', '_')
+    }
+    if (username1.match(format)) {
+        username1 = username1.replace(/[^a-z0-9]/gi, '');
+    }
+    if (username2.match(format)) {
+        username2 = username2.replace(/[^a-z0-9]/gi, '');
     }
     const query = fetch(`http://localhost:8888/Connect-4/src/data/index.php?api=create&red_user=${username1}&yellow_user=${username2}&yellow_score=${player1Score}&red_score=${player2Score}&gametime=${totalGameTime}`);
 
