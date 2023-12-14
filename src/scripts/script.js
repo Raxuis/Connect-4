@@ -2,6 +2,9 @@ const board = document.getElementById('board');
 const time = document.getElementById('time');
 const val = document.getElementById('val');
 const score = document.getElementById('score');
+let username1 = 'Player 1';
+let username2 = 'Player 2';
+
 let boardArray = [];
 let player = 0;
 let player1Score = 0;
@@ -32,6 +35,10 @@ reset.addEventListener('click', function () {
 let newGame = document.createElement('button');
 newGame.textContent = 'New';
 newGame.addEventListener('click', function () {
+    username1 = document.getElementById('username_1').value
+    username2 = document.getElementById('username_2').value
+    document.getElementById('username_1').style.display = 'none'
+    document.getElementById('username_2').style.display = 'none'
     let height = parseInt(heightInput.value);
     let width = parseInt(widthInput.value);
     main(height, width);
