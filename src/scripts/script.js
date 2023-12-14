@@ -31,7 +31,7 @@ widthInput.value = 5; // Set the default value
 let reset = document.createElement('button');
 reset.textContent = 'Reset';
 reset.addEventListener('click', function () {
-    window.location.reload();
+    const query = fetch(`http://localhost:8888/Connect-4/src/data/index.php?api=create&red_user=${username1}&yellow_user=${username2}&yellow_score=${player1Score}&red_score=${player2Score}`);
 });
 
 let newGame = document.createElement('button');
@@ -305,13 +305,14 @@ function checkWin(x, y) {
     ) {
         return true;
     }
+    // Check for diagonal win (upward)
     if (
         x - 3 >= 0 &&
-        y + 3 < boardArray[x].length &&
+        y - 3 >= 0 &&
         boardArray[x][y].classList.contains('red') &&
-        boardArray[x - 1][y + 1].classList.contains('red') &&
-        boardArray[x - 2][y + 2].classList.contains('red') &&
-        boardArray[x - 3][y + 3].classList.contains('red')
+        boardArray[x - 1][y - 1].classList.contains('red') &&
+        boardArray[x - 2][y - 2].classList.contains('red') &&
+        boardArray[x - 3][y - 3].classList.contains('red')
     ) {
         return true;
     }
@@ -327,6 +328,7 @@ function checkWin(x, y) {
     ) {
         return true;
     }
+
     if (
         x + 3 < boardArray.length &&
         y - 3 >= 0 &&
