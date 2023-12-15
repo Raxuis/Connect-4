@@ -13,6 +13,12 @@ query
         html = '<table>'
         response.forEach(ele => {
             html += '<tr>'
+            if (ele.yellow_name.includes('_')) {
+                ele.yellow_name = ele.yellow_name.replace('_', ' ')
+            }
+            if (ele.red_name.includes('_')) {
+                ele.red_name = ele.red_name.replace('_', ' ')
+            }
             html += '<td>' + '<p>' + ele.red_name + '</p>' + '</td>'
             html += '<td>' + '<p>' + ele.yellow_name + '</p>' + '</td>'
             html += '<td>' + '<p>' + ele.red_score + ' : ' + ele.yellow_score + '</p>' + '</td>'

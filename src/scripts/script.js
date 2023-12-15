@@ -25,11 +25,11 @@ player2ScoreText.textContent = player2Score;
 
 let heightInput = document.createElement('input');
 heightInput.type = 'number';
-heightInput.value = 5; // Set the default value
+heightInput.placeholder = 'Lines'; // Set the default value
 
 let widthInput = document.createElement('input');
 widthInput.type = 'number';
-widthInput.value = 5; // Set the default value
+widthInput.placeholder = 'Columns'; // Set the default value
 
 let reset = document.createElement('button');
 reset.textContent = 'Reset';
