@@ -16,6 +16,11 @@ let player1Score = 0;
 let player2Score = 0;
 let clicked = false;
 
+const headers = {
+    'Accept': 'application/json'
+}
+
+
 let player1ScoreText = document.createElement('div');
 player1ScoreText.textContent = player1Score + ':';
 
@@ -47,7 +52,19 @@ reset.addEventListener('click', function () {
     if (username2.match(format)) {
         username2 = username2.replace(/[^a-z0-9]/gi, '');
     }
-    const query = fetch(`http://localhost:8888/Connect-4/src/data/index.php?api=create&red_user=${username1}&yellow_user=${username2}&yellow_score=${player1Score}&red_score=${player2Score}&gametime=${totalGameTime}`);
+
+    const form = new FormData();
+    form.append("yellow_user", username2);
+    form.append("red_user", username1);
+    form.append("yellow_score", player1Score);
+    form.append("red_score", player2Score);
+    form.append("gametime", totalGameTime);
+
+    const query = fetch('http://localhost:8888/Connect-4/src/data/index.php?api=create', {
+        method: 'POST',
+        headers: headers,
+        body: form,
+    });
 
     query.then(response => response.json()).then((response) => {
         response.forEach(ele => {

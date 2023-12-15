@@ -1,25 +1,26 @@
 <?php
 require 'connection.php';
-
-
+header('Access-Control-Allow-Origin: *');
 if (isset($_GET)) {
     if (isset($_GET['api'])) {
-        if (isset($_GET['yellow_user']) && isset($_GET['red'])) {
-            if (in_array(' ', $_GET['yellow_user'])) {
-                $_GET['yellow_user'] = str_replace(' ', '_', $_GET['yellow_user']);
-                $_GET['red_user'] = str_replace(' ', '_', $_GET['red_user']);
+        if (isset($_POST['yellow_user']) && isset($_POST['red_user'])) {
+            if (strpos($_POST['yellow_user'], ' ') !== false) {
+                $_POST['yellow_user'] = str_replace(' ', '_', $_POST['yellow_user']);
+            }
+            if (strpos($_POST['red_user'], ' ') !== false) {
+                $_POST['red_user'] = str_replace(' ', '_', $_POST['red_user']);
             }
         }
         if ($_GET['api'] === 'create') {
             $query = $bdd->prepare('INSERT INTO games (yellow_name, red_name, yellow_score, red_score, time) VALUES (:yellow_user, :red_user, :yellow_score, :red_score,:gameTime)');
             $query->execute([
-                'yellow_user' => $_GET['yellow_user'],
-                'red_user' => $_GET['red_user'],
-                'yellow_score' => $_GET['yellow_score'],
-                'red_score' => $_GET['red_score'],
-                'gameTime' => $_GET['gametime']
+                'yellow_user' => $_POST['yellow_user'],
+                'red_user' => $_POST['red_user'],
+                'yellow_score' => $_POST['yellow_score'],
+                'red_score' => $_POST['red_score'],
+                'gameTime' => $_POST['gametime']
             ]);
-            echo json_encode('success');
+            echo json_encode(['message' => 'success']);
         } elseif ($_GET['api'] === 'read') {
             $query = $bdd->prepare('SELECT * FROM games');
             $query->execute();
