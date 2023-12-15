@@ -45,6 +45,7 @@ This connect 4 was a project made during classes from my private school.<br>
 
 :heavy_check_mark: Play with your friend
 :heavy_check_mark: Win (I think it's what matters the most)
+:heavy_check_mark: See previously played games
 
 ## :rocket: Technologies ##
 
@@ -52,10 +53,12 @@ The following tools were used in this project:
 
 - HTML / CSS
 - JavaScript
+- PHP
+- MySQL
 
 ## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) installed.
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and XAMP, LAMP, MAMP or WAMP installed.
 
 ## :checkered_flag: Starting ##
 
@@ -66,7 +69,7 @@ $ git clone https://github.com/Raxuis/connect-4
 # Access
 $ cd connect-4
 
-# Simply start a live server
+# Use XAMP, LAMP, MAMP or WAMP
 ```
 
 ## :memo: License ##
