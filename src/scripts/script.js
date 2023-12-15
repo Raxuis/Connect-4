@@ -67,9 +67,13 @@ reset.addEventListener('click', function () {
     });
 
     query.then(response => response.json()).then((response) => {
-        response.forEach(ele => {
-            console.log(ele);
-        });
+        if (Array.isArray(response)) {
+            response.forEach(ele => {
+                console.log(ele);
+            });
+        } else {
+            console.log(response);
+        }
     }).catch(error => console.log(error));
     totalGameTime = 0;
     window.location.reload();

@@ -18,7 +18,7 @@ if (isset($_GET)) {
                 'red_user' => $_POST['red_user'],
                 'yellow_score' => $_POST['yellow_score'],
                 'red_score' => $_POST['red_score'],
-                'gameTime' => $_POST['gametime']
+                'gameTime' => date('H:i:s', $_POST['gametime'])
             ]);
             echo json_encode(['message' => 'success']);
         } elseif ($_GET['api'] === 'read') {
