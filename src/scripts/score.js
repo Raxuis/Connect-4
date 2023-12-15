@@ -28,7 +28,6 @@ query
                 html += '<td>' + '<p>' + 'Time not found' + '</p>' + '</td>'
             }
             html += '</tr>'
-            console.log(ele);
         });
         html += '</table>'
         table.innerHTML = html;
